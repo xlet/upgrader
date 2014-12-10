@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <!-- Force latest IE rendering engine or ChromeFrame if installed -->
+    <!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <![endif]-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="jimmy">
+    <title>TimeLine</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="/webjars/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- CSS adjustments for browsers with JavaScript disabled -->
+    <!-- Timeline CSS -->
+    <link href="/static/css/plugins/timeline.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/static/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/static/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/js/plugins/pgwslider/pgwslider.min.css" rel="stylesheet" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="/webjars/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="/webjars/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+
+<!-- /.panel-heading -->
+<div class="row">
+    <div class="panel-body col-lg-6 col-lg-offset-3">
+        <ul class="timeline" th:each="version,status:${product.versions}">
+            <li th:class="${status.odd}?'timeline-inverted'">
+                <div th:class="${status.odd}?'timeline-badge warning':'timeline-badge'">
+                    <a th:href="${version.download}">
+                        <small th:text="${version.version}"></small>
+                    </a>
+                </div>
+                <div class="timeline-panel">
+                    <p th:if="${#lists.isEmpty(version.changeLogs)}">
+                        初始版本
+                    </p>
+                    <ul class="pgwSlider" th:if="${not #lists.isEmpty(version.changeLogs)}">
+                        <li th:if="${not #lists.isEmpty(version.changeLogs)}"
+                            th:each="log:${version.changeLogs}">
+                            <img th:if="${!#strings.isEmpty(log.image)}"
+                                 th:src="${log.image}" th:alt="${log.title}">
+                        <span>
+                        <i class="fa fa-clock-o"></i><small class="text-muted"
+                                                            th:text="${#dates.format(log.createAt,'yyyy/MM/dd')+'    '+log.description}"></small>
+                          </span>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- /.panel-body -->
+<!-- /#page-wrapper -->
+<!-- /#wrapper -->
+<!-- jQuery Version 1.11.0 -->
+<script src="/webjars/jquery/2.1.1/jquery.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="/webjars/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<!-- Metis Menu Plugin JavaScript -->
+<script type="text/javascript" src="/static/js/plugins/pgwslider/pgwslider.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.pgwSlider').pgwSlider({
+            autoSlide: true,
+            displayList: false,
+            transitionEffect: 'sliding',
+            displayControls: true,
+            touchControls: false,
+            selectionMode: 'mouseOver'
+        });
+    });
+</script>
+</body>
+
+</html>

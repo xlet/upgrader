@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+    <configuration>
+        <date-format>yyyy-MM-dd HH:mm:ss</date-format>
+    </configuration>
+
+    <mapping>
+        <class-a>org.xlet.upgrader.domain.Version</class-a>
+        <class-b>org.xlet.upgrader.vo.VersionVo</class-b>
+
+        <field>
+            <a>pack</a>
+            <b>url</b>
+        </field>
+    </mapping>
+
+    <mapping>
+        <class-a>org.xlet.upgrader.domain.Version</class-a>
+        <class-b>org.xlet.upgrader.vo.LatestVersion</class-b>
+
+        <field>
+            <a>download</a>
+            <b>url</b>
+        </field>
+    </mapping>
+    <mapping wildcard="true">
+        <class-a>org.xlet.upgrader.domain.Version</class-a>
+        <class-b>org.xlet.upgrader.vo.dashboard.VersionDTO</class-b>
+
+        <field>
+            <a>product.code</a>
+            <b>product</b>
+        </field>
+        <field>
+            <a>product.id</a>
+            <b>productId</b>
+        </field>
+        <field>
+            <a>download</a>
+            <b>download</b>
+        </field>
+        <field>
+            <a>pack</a>
+            <b>pack</b>
+        </field>
+        <field custom-converter-id="dateConverter">
+            <a>updateAt</a>
+            <b>updateAt</b>
+        </field>
+        <field custom-converter-id="dateConverter">
+            <a>createAt</a>
+            <b>createAt</b>
+        </field>
+    </mapping>
+
+    <mapping>
+        <class-a>org.xlet.upgrader.domain.Version</class-a>
+        <class-b>org.xlet.upgrader.vo.homepage.DownloadVo</class-b>
+
+        <field>
+            <a>download</a>
+            <b>url</b>
+        </field>
+        <field>
+            <a>product.name</a>
+            <b>product</b>
+        </field>
+        <field>
+            <a>product.code</a>
+            <b>code</b>
+        </field>
+    </mapping>
+</mappings>
